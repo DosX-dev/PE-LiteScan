@@ -1,4 +1,5 @@
-﻿// https://github.com/DosX-dev/PE-LiteScan
+﻿using System;
+using System.IO;
 
 namespace PE_LiteScan {
     class Program {
@@ -23,16 +24,28 @@ namespace PE_LiteScan {
 
             string filePath = args[0]; // Get the path to the executable
 
-            if (!System.IO.File.Exists(filePath)) {
+            if (!File.Exists(filePath)) {
                 Console.WriteLine("ERR:NOT_FOUND");
                 return;
             }
 
             try {
+                // Read the first two bytes of the file to check if it is a PE file
+                using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read)) {
+                    byte[] buffer = new byte[2];
+                    fileStream.Read(buffer, 0, 2);
+                    string fileSignature = System.Text.Encoding.ASCII.GetString(buffer);
+
+                    if (fileSignature != "MZ") {
+                        Console.WriteLine("ERR:BAD_FORMAT");
+                        return;
+                    }
+                }
+
                 var analyzer = new PEAnalyzer(filePath);
                 analyzer.Analyze();
             } catch (Exception ex) {
-                Console.WriteLine($"Error analyzing file: {ex.Message}");
+                Console.WriteLine($"ERR:{{{ex.Message}}}");
             }
         }
     }
