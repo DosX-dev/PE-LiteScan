@@ -1,4 +1,6 @@
-﻿namespace PE_LiteScan {
+﻿// https://github.com/DosX-dev/PE-LiteScan
+
+namespace PE_LiteScan {
     /// <summary>
     /// This class is responsible for scanning a byte array for the presence of a given signature.
     /// </summary>

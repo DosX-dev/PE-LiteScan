@@ -1,4 +1,6 @@
-﻿namespace PE_LiteScan {
+﻿// https://github.com/DosX-dev/PE-LiteScan
+
+namespace PE_LiteScan {
     /// <summary>
     /// Provides methods for writing colored messages to the console.
     /// </summary>

@@ -1,4 +1,6 @@
-﻿using PeNet;
+﻿// https://github.com/DosX-dev/PE-LiteScan
+
+using PeNet;
 using PeNet.Header.Pe;
 using System.Text;
 

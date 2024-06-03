@@ -1,4 +1,6 @@
-﻿namespace PE_LiteScan {
+﻿// https://github.com/DosX-dev/PE-LiteScan
+
+namespace PE_LiteScan {
     /// <summary>
     /// Contains methods for calculating the entropy of a byte array.
     /// </summary>
