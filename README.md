@@ -1,6 +1,8 @@
 # PELS analyzer
 **PE-LiteScan** (or **PELS**) is a simple heuristic analyzer for common PE-anomalies, specifically focusing on the detection of packers and protectors. Designed for Windows.
 
+> **[Download for Windows x64](https://github.com/DosX-dev/PE-LiteScan/releases/tag/Builds)**
+
 ![](pics/pic.png)
 
 # Using
