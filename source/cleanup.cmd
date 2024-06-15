@@ -1,0 +1,1 @@
+rd "bin" "obj" /q /s

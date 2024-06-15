@@ -1,0 +1,2 @@
+call build_win
+call build_linux
