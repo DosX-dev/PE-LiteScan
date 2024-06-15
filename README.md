@@ -11,7 +11,7 @@
 > PE-LiteScan-windows.exe "file_to_check.exe"
 > ```
 
-> > **Linux**
+> **Linux**
 > ```
 > ./PE-LiteScan-linux "file_to_check.exe"
 > ```
