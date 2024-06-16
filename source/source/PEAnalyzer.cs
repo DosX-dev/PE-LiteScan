@@ -96,6 +96,8 @@ namespace PE_LiteScan {
             CheckImports(); // Check if the import table exists in the PE file
             CheckSections(); // Check if the sections of the PE file are valid
             CheckOverlay(); // Check for an overlay in the file
+            CheckSectionEntropy();
+            CheckWeirdSectionNames();
 
             if (_peFile.IsDotNet) {
                 CheckNetForIldasm(); // Check if the file contains the 'SuppressIldasmAttribute' attribute
@@ -188,7 +190,7 @@ namespace PE_LiteScan {
 
             // If the entropy is greater than 7.5, the file may be packed
             if (entropy > 7.5) {
-                ColoredConsole.WriteBadDetection("HIGH_ENTROPY", "Seems like file contains a packed data");
+                ColoredConsole.WriteBadDetection("HIGH_ENTROPY", $"Seems like file contains a packed data, entropy {entropy:F2}");
                 badDetected = true;
             }
         }
@@ -288,6 +290,47 @@ namespace PE_LiteScan {
                 }
             }
         }
+
+
+        /// <summary>
+        /// Checks the entropy of each section in the PE file. High entropy values suggest compressed data.
+        /// </summary>
+        private void CheckSectionEntropy() {
+            if (_peFile.ImageSectionHeaders != null) {
+                for (int i = 0; i < _peFile.ImageSectionHeaders.Length; i++) {
+                    ImageSectionHeader? section = _peFile.ImageSectionHeaders[i];
+                    byte[] sectionData = new byte[section.SizeOfRawData];
+                    Array.Copy(_fileBytes, section.PointerToRawData, sectionData, 0, section.SizeOfRawData);
+
+                    // Calculate entropy of the section data
+                    double entropy = EntropyCalculator.Calc(sectionData);
+                    if (entropy > 7.5) {
+                        // Write a detection message for high entropy sections
+                        ColoredConsole.WriteBadDetection($"SECTION_{i}_HIGH_ENTROPY", $"Section \"{section.Name.Trim()}\" contains compressed data, entropy {entropy:F2}");
+                        badDetected = true;
+                    }
+                }
+            }
+        }
+
+
+
+        /// <summary>
+        /// This method checks for section names containing weird characters and flags them as strange.
+        /// </summary>
+        private void CheckWeirdSectionNames() {
+            if (_peFile.ImageSectionHeaders != null) {
+                for (int i = 0; i < _peFile.ImageSectionHeaders.Length; i++) {
+                    ImageSectionHeader? section = _peFile.ImageSectionHeaders[i];
+                    // Check if the section name contains weird characters
+                    if (section.Name.Any(c => "=+~!@#$%^&*()№;%:?*():;,\\|'`<> ".Contains(c))) {
+                        ColoredConsole.WriteBadDetection($"WEIRD_{i}_SECTION_NAME", $"Section \"{section.Name.Trim()}\" looks very strange");
+                        badDetected = true;
+                    }
+                }
+            }
+        }
+
 
 
         /// <summary>

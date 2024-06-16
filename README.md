@@ -19,14 +19,16 @@
 # Detection types
 | Detection Type              | Description                                                                 |
 |-----------------------------|-----------------------------------------------------------------------------|
-| `LAST_SECTION_ENTRYPOINT`   | The entry point is located in the last section of the file.                  |
+| `LAST_SECTION_ENTRYPOINT`   | The entry point is located in the last section of the file.                 |
 | `NO_TEXT_SECTION`           | The `.text` section is missing from the PE file.                            |
 | `STRANGE_OVERLAY`           | Compressed data found in the overlay section of the file.                   |
 | `HIGH_ENTROPY`              | High entropy detected, indicating possible packed data.                     |
-| `NET_ANTI_ILDASM`           | The `.NET` binary has the `SuppressIldasmAttribute` attribute.               |
+| `NET_ANTI_ILDASM`           | The `.NET` binary has the `SuppressIldasmAttribute` attribute.              |
 | `PUSHAL_AT_ENTRY`           | Strange entry point detected (e.g., starts with `PUSHAL` instruction).      |
-| `CUSTOM_DOS_STUB`           | Unusual DOS stub found in the PE file.                                       |
-| `IMPORT_TABLE_MISSING`      | The import table is missing from the PE file.                                |
-| `SECTIONS_LIKE_*`           | Section names match known packer signatures (e.g., `UPX`, `VMProtect`).     |
+| `CUSTOM_DOS_STUB`           | Unusual DOS stub found in the PE file.                                      |
+| `IMPORT_TABLE_MISSING`      | The import table is missing from the PE file.                               |
+| `SECTIONS_LIKE_%s`          | Section names match known packer signatures (e.g., `UPX`, `VMProtect`).     |
+| `SECTION_%d_HIGH_ENTROPY`   | Section contains compressed data.                                           |
+| `WEIRD_%d_SECTION_NAME`     | Section looks very strange.                                                 |
 
 > Powered by `PeNet` library.
