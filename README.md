@@ -29,4 +29,9 @@
 | `IMPORT_TABLE_MISSING`      | The import table is missing from the PE file.                                |
 | `SECTIONS_LIKE_*`           | Section names match known packer signatures (e.g., `UPX`, `VMProtect`).     |
 
+# To do
+ * Sections name checking
+ * Sections entropy checking
+ * More signatures for .NET
+
 > Powered by `PeNet` library.
