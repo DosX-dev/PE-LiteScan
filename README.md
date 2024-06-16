@@ -32,8 +32,6 @@
 | `WEIRD_%d_SECTION_NAME`     | Section looks very strange.                                                 |
 
 # To do
- * Sections name checking
- * Sections entropy checking
  * More signatures for .NET
 
 > Powered by `PeNet` library.
